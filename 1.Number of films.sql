@@ -9,6 +9,8 @@ FROM
 	ON	fa.actor_id=a.actor_id
 GROUP BY
 	actor
+HAVING 
+	COUNT(fa.film_id) > 40
 ORDER BY
 	COUNT(fa.film_id) DESC;
 
