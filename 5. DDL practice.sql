@@ -2,11 +2,12 @@
 
 CREATE TABLE training_data.dim_groups 
 (
-	group_id		BIGSERIAL	PRIMARY KEY,
+	group_id	BIGSERIAL	PRIMARY KEY,
 	group_member 	INTEGER		NOT NULL,
 	creation_year 	INTEGER		DEFAULT EXTRACT(YEAR FROM current_date) NOT NULL,
 	disband_year 	INTEGER	
 );
+
 
 -- Adding values to the dim_groups table
 
@@ -14,7 +15,9 @@ INSERT INTO training_data.dim_groups (group_member)
 VALUES (101);
 
 
-SELECT* FROM training_data.dim_groups dg;
+SELECT	* 
+FROM	training_data.dim_groups;
+
 
 -- Creating dim_trainees table
 
@@ -26,17 +29,24 @@ CREATE TABLE training_data.dim_trainees
 	last_name		TEXT		NOT NULL,
 	full_name		TEXT 		GENERATED ALWAYS AS (first_name || ' ' || last_name) STORED NOT NULL,
 	birth_date		DATE		NOT NULL,
-	enrollment_year	INTEGER		DEFAULT EXTRACT (YEAR FROM CURRENT_DATE) NOT NULL,
-	graduation_year	INTEGER
+	enrollment_year		INTEGER		DEFAULT EXTRACT (YEAR FROM CURRENT_DATE) NOT NULL,
+	graduation_year		INTEGER
 );
 
+
+-- Populating dim_trainees table
+
 INSERT INTO training_data.dim_trainees (group_id, first_name, last_name, birth_date)
-VALUES	(1,
-		'John',
-		'Doe',
-		'1993-03-02'::DATE);
+VALUES	
+(	
+	1,
+	'John',
+	'Doe',
+	'1993-03-02'::DATE
+);
 		
-SELECT * FROM training_data.dim_trainees dt;
+SELECT	* 
+FROM	training_data.dim_trainees;
 
 ALTER TABLE training_data.dim_trainees -- Adding education column
 ADD COLUMN	education TEXT;
